@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+    <head>
+        <meta charset="UTF-8" />
+        <base href="<?= Kon::BASE ?>"/>
+        <title><?= $titulek ?></title>
+        <meta name="description" content="<?= $popis ?>" />
+        <meta name="keywords" content="<?= $klicova_slova ?>" />
+
+        <script src="<?= Kon::BASE ?>/js/jquery-2.0.3.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="<?= Kon::BASE ?>/js/rozlozeni.js"></script>
+        <script src="<?= Kon::BASE ?>/js/jquery.multiselect.min.js"></script>
+        <script src="<?= Kon::BASE ?>/js/easyTooltip.js"></script>
+      <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+        <link rel="stylesheet" href="<?= Kon::BASE ?>/css/menu.css" type="text/css"/>
+	 	<link rel="stylesheet" href="<?= Kon::BASE ?>/js/jquery-ui-themes-1.10.3/themes/sunny/jquery.ui.theme.css"/>
+        <link rel="stylesheet" href="<?= Kon::BASE ?>/css/jquery.multiselect.css" type="text/css"/>
+		<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+
+
+	<!--	 <link rel="stylesheet" href="<?= Kon::BASE ?>/jquery-ui-1.10.3.custom/css/sunny/jquery-ui-1.10.3.custom.css -->
+       
+
+    </head>
+
+    <body>
+        <div id='hlavicka' >
+            <div id='h_vlevo' >
+                <img  style=" border:black solid thin; border-radius: 30px; margin-top:-10px; margin-left: 10px;" width="70px;" src="/img/icons/logstredni.jpeg" alt="logo" />
+                <strong style= "position: absolute; font-family:Arial; font-size:x-large;  color: white; margin-top: 5px; margin-left: 15px;"> Půjčovna </strong>
+
+            </div>
+
+            <div id='h_vpravo'  >
+                Přihlášen: <b><?=
+                    isset($_SESSION['s_majitel']) ?
+                            $_SESSION['s_majitel']['jmeno'] . ' ' . $_SESSION['s_majitel']['prijmeni']
+                            . '</b> | <a href=<?= Kon::BASE ?>/admin/logout/>Odhlásit</a>' : 'anonym'
+                    ?>
+                    <?php if ($_SESSION['s_majitel']['status'] > 99) { ?>
+                        <a href='<?= Kon::BASE ?>/admin/unset/'>RefSession</a>
+                        <a href='<?= Kon::BASE ?>/admin/debug/'>Debug</a>
+                    <?php } ?>
+
+            </div>
+            <div id="menu-box">
+                <ul id="hmenu" class="clearfix">
+                    <li ><a href="#" class="info">Úvod</a></li>
+                    <li><a href="#" class="info" >Jak objednat</a></li>
+                    <li><a href="#" class="info" >Ceny</a></li>
+                    <li><a href="#" class="info" >O nás</a></li>
+                    <!--  vyhozeno      <li><a href="/admin/kontakt" >Dotaz</a></li>       -->
+                    <li><a <a href="#" class="info" >Pro majitele</a></li>
+                </ul>
+            </div>   
+            <div id="informace" class="ui-widget ui-widget-content ui-corner-all" 
+                 style="position:absolute;  float:right; width: 500px; left: 450px; height: auto; top: 51px; padding: 10px; display: none;">
+                <div class="ui-dialog-content ui-widget-content" style=" background: none; border: 0;">
+                    <a href="#">[X]</a>
+                    <p  style="font-weight: normal;">Info</p>
+                </div>
+            </div>
+
+            <div id='h_kategorie' >
+                <div id="kategorie1">
+                    <img src="<?= Kon::BASE ?>/img/icons/zidle.jpeg" alt="Sezení" title="Výběr Židle" /></br>
+                    <label> Sezení </label>
+                </div>
+				<div id="kategorie2">
+                    <img src="<?= Kon::BASE ?>/img/icons/postele.jpeg" alt="Postele" title="Výběr Postele" /></br>
+                    <label> Postele </label>
+                </div>
+                <div id="kategorie3">
+                    <img src="<?= Kon::BASE ?>/img/icons/stoly.jpeg" alt="Stoly" title="Výběr Stoly" /></br>
+                    <label> Stoly </label>
+                </div>                
+                <div id="kategorie4">
+                    <img src="<?= Kon::BASE ?>/img/icons/koberce.jpeg" alt="Skříně" title="Výběr koberce" /></br>
+                    <label> Koberce </label>
+                </div>
+                <div id="kategorie5">
+                    <img src="<?= Kon::BASE ?>/img/icons/nasteny.jpg" alt="Dekorace" title="Výběr Na stěny" /></br>
+                    <label> Na stěny </label>
+                </div>
+				 <div id="kategorie6">
+                    <img src="<?= Kon::BASE ?>/img/icons/dekorace.jpeg" alt="Osvětlení" title="Výběr Osvětlení" /></br>
+                    <label> Osvětlení </label>
+                </div>
+				 <div id="kategorie7">
+                    <img src="<?= Kon::BASE ?>/img/icons/kvetiny.jpeg" alt="Květiny" title="Výběr Květiny" /></br>
+                    <label> Květiny </label>
+                </div>
+				 <div id="kategorie8">
+                    <img src="<?= Kon::BASE ?>/img/icons/softdekor.jpeg" alt="Dekorace" title="Výběr Dekorace" /></br>
+                    <label> Soft dekor </label>
+                </div>
+				<div id="kategorie9">
+                    <img src="<?= Kon::BASE ?>/img/icons/ostatni.jpeg" alt="Ostatní" title="Výběr Ostatní" /></br>
+                    <label> Ostatní </label>
+                </div>
+            </div>
+
+<!--
+            <div id='h_tema' >
+                <div id="tema1">
+                    <img src="<?= Kon::BASE ?>/img/icons/retro.jpeg" alt="Retro" title="Retro styl" ></br>
+                    <label>Retro</label>
+                </div>
+                <div id="tema2">
+                    <img src="<?= Kon::BASE ?>/img/icons/koberce.jpeg" alt="Koberce" title="Koberce" ></br>
+                    <label>Koberce</label>
+                </div>
+                <div id="tema3">
+                    <img src="<?= Kon::BASE ?>/img/icons/osvetleni.jpeg" alt="Osvětlení" title="Podvýběr Osvětlení" > </br>
+                    <label>Osvětlení</label>
+                </div>
+                <div id="tema4">
+                    <img src="<?= Kon::BASE ?>/img/icons/kuchyne.jpeg" alt="Kuchyně" title="Podvýběr Kuchyně" > </br>
+                    <label>Kuchyně </label>
+                </div>
+                <div id="tema5">
+                    <img src="<?= Kon::BASE ?>/img/icons/obrazy.jpeg" alt="Obrazy" title="Podvýběr obrazy " ></br>
+                    <label> Obrazy </label>
+                </div>
+               
+            </div>
+-->
+        </div>
+
+
+        
+
+        <div id="filter" style="width: 100%; background-color: khaki;" >
+            <ul id="menu" >
+                <li><a  href="/objekt/seznam/T">Objekty</a>
+                    <ul >
+                        <li><a href="/objekt/seznam/T">tabulkově</a></li>
+                        <li><a href="/objekt/seznam/R">řádkově</a></li>
+                    </ul>
+                </li>
+			
+			
+                <li><a href="#">Pro majitele</a>
+                    <ul style="width: auto;">
+                        <li><a href="/majitel/new">Registrace</a></li>
+                        <li><a href="/majitel/login">Přihlášení</a></li>
+                        <li><a <?= (isset($_SESSION['s_majitel']) and $_SESSION['s_majitel']['status'] > 1) ? '' : 'class="ui-state-disabled" ' ?>
+                                href="/objekt/new">
+                                Můj objekt</a> 
+                        </li>
+                        <li><a <?= (isset($_SESSION['s_majitel']) and $_SESSION['s_majitel']['status'] > 1) ? '' : 'class="ui-state-disabled" ' ?>
+                                href="/majitel/edit/<?= $_SESSION['s_majitel']['majitel_id'] ?>">Můj profil</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li><a href="/admin/kontakt">Kontakt</a></li>
+                <li><a href="/admin/onas">O nás</a></li>
+                <?php if (isset($_SESSION['s_majitel']) and $_SESSION['s_majitel']['status'] > 99) { ?>
+                    <li><a href="/majitel/seznam">Administrace</a>
+                        <ul style="width: auto;">
+                            <li><a href="/majitel/seznam">Majitelé</a></li>                
+                        </ul>
+                    </li>
+                <?php } ?>
+
+            </ul> 
+                
+
+        </div>    
+		<div id="ramVpravo" ondrop="drop(event)" ondragover="event.preventDefault()"> 
+		 <input type="submit" class="odeslat" value="Nová nabídka" onclick="JavaScript:newNabidka();">
+         <p>Sem vložte objekt pro nabídku 
+		
+		 <strong>Kopíruj přetažením ze seznamu</strong>.
+		</p>
+		</div >
+
+        <div id="obsah" >
+            <?php $this->kontroler->vypisPohled(); // vložení aktuálního pohledu do šablony      ?>
+			 <div id="divzpravy">  
+                <?php foreach ($zpravy as $zprava) : ?>
+                    <p class="zprava"><?= $zprava ?></p>
+                <?php endforeach ?>
+            </div>   
+        </div>
+		
+        <footer>
+            <p>Aplikace Půjčovna nábytku 
+            </p>
+        </footer>
+    </body>
+</html>

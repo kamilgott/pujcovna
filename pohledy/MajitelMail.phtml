@@ -1,0 +1,55 @@
+<div id="ram">
+    <h1>Kontaktujte majitele</h1>
+
+    <p>Majitel objektu ID=<?= $objekt_id ?> bude kontaktován pomocí tohoto formuláře.</p>
+
+    <form method="post" id="form-email">
+        <table>
+            <tr>
+                <td><label for="jmeno">Vaše jméno:</label></td>
+                <td><input type="text" name="jmeno"  id="jmeno" /></td>
+            </tr>
+
+            <tr>
+                <td><label for="email">Vaše emailová adresa:</label></td>
+                <td><input type="email" name="email" required="required" id="email" />
+                </td>
+            </tr>
+            <tr>
+                <td><label for="telefon">Telefon:</label></td>
+                <td><input type="text" name="telefon"  id="telefon" />
+                    <small> telefon kde Vás může majitel kontaktovat</small>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="termin">Požadovaný termín:</label></td>
+                <td><input type="text" name="termin"  id="termin" />
+                    <small> zadejte od-do (např.28.5. - 5.6) respektující kalendář obsazenosti</small></td>
+            </tr>
+            <tr>
+                <td><label for="pocet">Počet dospělých:</label></td>
+                <td><input type="text" name="pocet"  id="pocet" style="width: 30px;" />
+                    <small> upřesněním počtu zrychlíte jednání s majitelem</small>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="deti">Počet dětí:</label></td>
+                <td><input type="text" name="deti"  id="deti" style="width: 30px;" />
+                    <small> upřesněním počtu zrychlíte jednání s majitelem</small></td>
+            </tr>
+
+            <tr>
+                <td><label for="a">Antispam:</label></td>
+                <td><input type="text" name="a" required="required" id="a" style="width: 30px;" /> 
+                    <small>zadejte aktuální den v měsíci</small></td>
+            </tr>
+        </table>
+        <label for="zprava">Váš doplňující dotaz:</label>
+        <input type="hidden" id="akce" name='akce' value='<?= $akce ?>'/>
+        <input type="hidden" id="objekt_id" name='objekt_id' value='<?= $objekt_id ?>'/>
+
+        <textarea name="zprava" style="height: 200px;"></textarea><br />
+        <input type="submit" class='odeslat' value="Odeslat" />
+     <!--   <input type="reset" value="Storno" />     -->
+    </form>
+</div>

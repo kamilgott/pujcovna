@@ -1,0 +1,95 @@
+<div id="ram">
+    <h2><?= isset($titulek) ? $titulek : '' ?></h2>
+    <?php
+// zjistim status majitele
+//    $status = (isset($_SESSION['s_majitel'])) ? $_SESSION['s_majitel']['status'] : 0;
+    if ( ! isset($_SESSION['s_majitel']) )
+        echo 'Registrace na zkoušku do 1.5.2014 zdarma. <br/> Rychlá a jednoduchá 
+    registrace bez závazků. Vyzkoušejte a získejte náskok před konkurencí. ';
+    ?>
+    <form method="post" id="form-majitel">
+        <table>
+            <tr>
+                <td><label for="prijmeni">Příjmení:</label></td>
+                <td><input type="text" name="prijmeni" required="required" value="<?= isset($prijmeni) ? $prijmeni : '' ?>" id="prijmeni" /></td>
+            </tr>
+
+            <tr>
+                <td><label for="jmeno">Jméno:</label></td>
+                <td><input type="text" name="jmeno" required="required" value="<?= isset($jmeno) ? $jmeno : '' ?>" id="jmeno" /></td>
+            </tr>
+            <tr>
+                <td><label for="adresa">Adresa:</label></td>
+                <td><textarea name="adresa" id="popis" maxlength="200"><?= isset($adresa) ? $adresa : '' ?></textarea></td>      
+            </tr>
+            <tr>
+                <td><label for="telefon">Telefon:</label></td>
+                <td><input type="text" name="telefon" value="<?= isset($telefon) ? $telefon : '' ?>" id="telefon" /></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" name="email" required="required" value="<?= isset($email) ? $email : '' ?>" id="email" /></td>
+            </tr>
+            <tr>
+                <td><label for="www">www:</label></td>
+                <td><input type="text" name="www"  
+                           value="<?= isset($www) ? $www : '' ?>" id="www"
+                           class="tooltip" title="URL adresa bez názvu protokolu(http) a úvodních nebo koncových mezer nebo lomítek např www.mojechata.cz  " r  />
+                </td>
+            </tr>
+
+
+
+            <?php
+            if ($akce === "heslo" and $status > 0) {
+                $akce = "save";
+                ?>
+                <tr>
+                    <td colspan="2">Do aplikace se budete přihlašovat pomocí Vašeho emailu a hesla.<br>
+                        Je třeba si zvolit heslo pro přihlášení.</td>
+
+                </tr> 
+                <tr>
+                    <td><label for="heslo">Nové heslo:</label></td>
+                    <td><input  type="password" name="heslo1"   id="heslo1" required="required" />
+                        zopakuj <input type="password" name="heslo2"   id="heslo2" required="required" /></td>
+                </tr> 
+            <?php } ?>
+        </table>
+        <br />
+        <input type="hidden" name="majitel_id" id='majitel_id' value="<?= $majitel_id ?>" />
+        <input type="hidden" name="status" id='status' value="<?= $status ?>" />
+        <input type="hidden" name="akce" id='akce' value="<?= $akce ?>" />
+
+        <input type="submit" class='odeslat' id="SubMajitel" value="Ulož" />
+
+
+        <?php if (isset($_SESSION['s_majitel']) and $_SESSION['s_majitel']['status'] > 90) { ?>
+            <?php if ($status >= 0) { ?>  
+                <input type="submit" class='odeslat' title="Dočasně zneplatni majitele v aplikaci, ten nebude moci se přihlásit a dělat změny v databázi. " 
+                       value="Zneplatni přístup"
+                       onclick="JavaScript:document.getElementById('akce').value = 'ObnovSkryj';"  />
+            <?php } ?>
+
+            <?php if ($status < 0) { ?>
+                <input type="submit" class='odeslat' title="Obnoví přístup majitele objektu v aplikaci" 
+                       value="Obnov přístup"
+                       onclick="JavaScript:document.getElementById('akce').value = 'ObnovSkryj';"  />
+             <?php } ?>
+
+            <input type="submit" class='odeslat'  value="Smaž"  title="Nevratně smaže majitele z aplikace" 
+                   onclick="JavaScript: document.getElementById('akce').value = 'delete';
+                                   return confirm('Opravdu nevratně smazat majitele?');" />
+        <?php } ?>
+
+
+        <?php
+        if ($status > 9) {
+            ?>
+            <a href="/objekt/new">Pokračujte na Váš objekt</a>
+        <?php } ?>
+
+    </form>
+
+
+</div >

@@ -1,0 +1,89 @@
+<div id="ram">
+<h1><?= $titulek ?></h1>
+<?= "text Predmajitele" ?>
+
+<form method="post" id="form-objekt">
+    <table class="f_table">
+        <tr>
+            <td>
+                <b>ID</b>    <br/>
+                <b>Status</b> 
+
+            </td>
+            <td>
+                <b>Jméno</b>  <br/>
+                <b>Příjmení</b>  
+            </td>
+            <td>
+                <b>Email</b> <br/>
+                <b>Telefon</b>  
+            </td>
+
+            <td>
+                <b>Adresa</b>  
+            </td>
+            <td>
+                <b>Akce</b>
+            </td>
+            <td>
+                <b>Aktualizace</b> <br/>
+                <b>Vznik</b> 
+            </td>
+
+        </tr> 
+
+        <?php foreach ($seznam as $mj) : ?>
+
+
+            <tr class="tr_seznam" >
+                <td>
+                    <?= $mj['majitel_id'] ?>  <br/>
+                    <?= $mj['status'] ?>  
+
+                </td>
+
+
+                <td>
+                    <?= $mj['jmeno'] ?>  
+                    <br/>
+                    <?= $mj['prijmeni'] ?>  
+                </td>
+                <td>
+                    <?= $mj['email'] ?>  
+                    <br/>
+                    <?= $mj['telefon'] ?>  
+
+                </td>
+                <td>
+                    <?= $mj['adresa'] ?>  
+                </td>
+              
+                <td>
+                    <a href="/majitel/edit/<?= $mj['majitel_id'] ?>" >Editace</a>
+                    <br/>
+                    <?php
+                    $obj = DB::dotazSamotny("SELECT objekt_id FROM objekt where id_majitel= ? ", array($mj['majitel_id']));
+                    if (isset($obj)) {
+                        ?>
+                        <a href="/objekt/edit/<?= $obj ?>" >Objekt(ID=<?=$obj?>)</a>
+                    <?php } ?>
+                </td>
+                <td>
+                    <?= $mj['uprava'] ?>   <br/>
+                    <?= $mj['vznik'] ?>  
+
+                </td>
+
+
+            </tr> 
+        <?php endforeach ?>
+
+
+    </table>
+    <br />
+
+    <input type="hidden" name="akce" value="<?= $akce ?>" />
+
+</form>
+
+</div>

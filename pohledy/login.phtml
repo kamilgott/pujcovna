@@ -1,0 +1,49 @@
+<div id="ram">
+    <h1><?= isset($titulek) ? $titulek : '' ?></h1>
+    <?= "text Pred" ?>
+    <?php
+// zjistim status majitele
+    $status = (isset($_SESSION['s_majitel'])) ? $_SESSION['s_majitel']['status'] : 0;
+    ?>
+    <form method="post" id="form-majitel">
+        <table>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" name="email" required="required" id="email"
+                           placeholder="Zadejte email" />
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="heslo">Heslo:</label></td>
+                <td>
+                    <input type="password" name="heslo" required id="heslo" autocomplete="off" placeholder="Zadejte heslo" />
+                    <input id="ZapomenuteHeslo" style=" font-size: 11px; height:23px; width: 120px;" type="button" value="Zapomenuté heslo"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td> </td>
+
+                <td >
+                    <div id="ZapomenuteDiv">
+                        Zadejte ID Vašeho objektu
+                        <input type="text" name="objekt_id"  id="objekt_id" style="width: 45px;"/>
+                        <br>
+                        <input  type="submit" value="Poslat resetování hesla" id="reset"
+                               onclick="JavaScript:document.getElementById('akce').value = 'ResetHesla';" />
+                        <small> Na Váš výše uvedený email bude odeslána výzva k obnovení hesla. </small>
+                    </div>
+                </td> 
+            </tr>
+
+
+        </table>
+        <br />
+        <input type="hidden" name="akce" id="akce" value="<?= $akce ?>" />
+
+        <input type="submit" id="SubForm" value="Přihlásit" />
+
+    </form>
+    
+</div >

@@ -1,0 +1,89 @@
+<div id="ram" style="padding: 4px;">
+  <h1>
+    <?= $titulek ?>
+  </h1>
+  <!--?= "text PredNovyObjekt" ? -->
+  <script src="/js/kalendar.js"></script>
+  <script src="/js/image.js"></script>
+
+
+  <form method="post" id="form-objekt" enctype="multipart/form-data" >
+    <?php $cis = new CiselnikClass(); ?>
+    <table class="f_table" >
+      <thead>
+        <th style="width:10%;">
+          <th style="width:30%;">
+            <th style="width:30%;">
+              <th style="width:30%;">
+                </thead>
+      <tr>
+        <td>
+          ID:<?= $id ?>
+        </td>
+        
+
+        <td colspan="3">
+          <label for="nazev" >Název:</label>
+          <input type="text" name="nazev" class="tooltip" id="nazev" required="required" style="width: 70%;"
+                 value="<?= $nazev ?>"
+          title="Určete název Vaší nabídky např. Byt Novákovi "
+          />
+        </td>
+
+      </tr>
+      
+      <tr>
+        <td>
+          <label for="popis">Popis:</label>
+        </td>
+        <td colspan="3">
+          <textarea name="popis" id="popis"  maxlength="500" class="popis">
+            <?= $popis ?>
+          </textarea>
+        </td>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <label for="cena">Cena:</label>
+        </td>
+        <td >
+          <label for="cena">měsíc:</label>
+          <input class="icena" type="number" name="cena"  id="cena"
+                 value="<?= ($cena == 0) ? '' : $cena ?>"  />
+        </td>
+       
+      </tr>
+      <tr>
+
+        <td>
+          <label for="odprodej">Odprodej:</label>
+        </td>
+        <td>
+          <input type="number" name="odprodej" class="icena tooltip" id="odprodej"
+            
+          title="Určete odprodejní cenu objektu v Kč."
+          />
+        </td>
+      </tr>
+     
+
+      
+
+    </table>
+    <br />
+
+    
+    <input type="hidden" name="id" id ="id" value="<?= $id ?>" />
+    <input type="hidden" name="akce" id="akce" value="<?= $akce ?>" />
+    <input type="hidden" name="status" id="status" value="<?= $status ?>" />   
+    <input type="submit" class='odeslat'  value="Ulož" />   
+
+
+
+    
+
+
+  <?= "text PoNovyObjekt" ?>
+</div >

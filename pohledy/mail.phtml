@@ -1,0 +1,23 @@
+<div id="ram">
+    <h1>Kontaktní formulář</h1>
+
+    <p>Kontaktujte nás odesláním formuláře níže.</p>
+
+    <form method="post" id="form-email">
+        <table>
+            <tr>
+                <td><label for="email">Vaše emailová adresa:</label></td>
+                <td><input type="email" name="email" required="required" value="<?= $email ?>" id="email" /></td>
+            </tr>
+            <tr>
+                <td><label for="a">Antispam - zadejte aktuální den v měsíci:</label></td>
+                <td><input type="text" name="a" required="required" id="a" /></td>
+            </tr>
+        </table>
+        <label for="zprava">Váš dotaz:</label>
+        <input type="hidden" name='akce' value='poslat'/>
+        <textarea name="zprava" style="height: 200px;"><?= $zprava ?></textarea><br />
+        <input type="submit" class='odeslat' value="Odeslat" />
+     <!--   <input type="reset" value="Storno" />     -->
+    </form>
+</div>

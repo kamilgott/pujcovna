@@ -1,0 +1,62 @@
+
+<div id="ram"  style="padding: 0px;" >
+    <strong > <?= $titulek ?> v tabulkovém pohledu </strong>
+
+    <form method="post" id="form-objekt">
+        <?php
+        $cis = new CiselnikClass();
+        ?>
+
+        <?php foreach ($seznam as $ob) : ?>
+            <div class="dlazdice"  
+                 kategorie="<?= CiselnikClass::getGcis('ObjektKategorie', $ob['kategorie'], 'hodnota_c') ?>" 
+                 id="<?= $ob['objekt_id'] ?>"
+                draggable="true"
+                ondragstart="drag(event)"
+                 onclick="return !window.open('/objekt/view/<?= $ob['objekt_id'] ?>','','');" 
+                 >
+                <small class="info" style="color: blue; text-align: left; cursor: help;"
+                       title="ID:<b><?= $ob['objekt_id'] ?></b>                 
+                       </br> 
+                       <b><?= $ob['nazev'] ?> </b>
+                       <b> (<?= CiselnikClass::getGcis('ObjektKategorie', $ob['kategorie'], 'hodnota_t') ?>) </b>
+                                   
+                       </br>
+                       cena <?= $ob['cena']>0 ?' <b>'.$ob['cena'].'Kč</b>':'' ?> 
+                       <?= $ob['cena_den']>0 ?' den:<b>'.$ob['cena_den'].'Kč</b>':'' ?> 
+                       <?= $ob['cena_tyden']>0 ? ' tyden:<b>'.$ob['cena_tyden'].'Kč</b>':'' ?> 
+                       </br>
+                                             
+                       ">  
+                    <b> [?] </b>
+                </small>
+                <small style="text-align: right;">  
+                    <?= substr($ob['nazev'], 0, 25) ?> 
+                </small>
+                <br>
+                  <?php
+                        $img = DB::dotazSamotny("SELECT bdata FROM obr where id_objekt= ? and poradi=1 ", array($ob['objekt_id']));                        
+                      //  $img = "data:image/jpeg;base64," . base64_encode($img);
+                        ?>
+                <img class="obrazek" width="148" height="113"  src=" <?= $img ?>"
+                     alt="Obrázek objektu <?= $ob['nazev'] ?>"
+                     title="Kliknutím na detail objektu <?= $ob['nazev'] ?>"
+                     />
+                <br>
+
+                <small >
+                    <?= substr(" cena:" . $ob['cena'], 0, 35) ?>  
+                </small>
+
+
+            </div >  
+        <?php endforeach ?>  
+        <input type="hidden" name="akce" id="akce" value="<?= $akce ?>" />
+
+
+    </form>
+
+    <p style="clear:both;"> 
+
+    </p>
+</div>

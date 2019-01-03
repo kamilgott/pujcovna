@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>Pujcovna</Name>
+    <ProjectGuid>{2f163e78-cd82-4b06-b8b6-86077701fbdd}</ProjectGuid>
+    <RootNamespace>
+    </RootNamespace>
+    <OutputType>Library</OutputType>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <Runtime>PHP</Runtime>
+    <RuntimeVersion>7.1</RuntimeVersion>
+    <ProjectHome />
+    <SaveServerSettingsInUserFile>false</SaveServerSettingsInUserFile>
+    <EnvName>PHPDev</EnvName>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <PHPDevAutoPort>true</PHPDevAutoPort>
+    <CustomXdebugPort>32768</CustomXdebugPort>
+    <PublishEvent>None</PublishEvent>
+    <DebugMappingMethod>Manual</DebugMappingMethod>
+    <DBGpProxyEnabled>false</DBGpProxyEnabled>
+    <DBGpProxyPort>9001</DBGpProxyPort>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include=".settings\.jsdtscope" />
+    <Compile Include=".settings\org.eclipse.wst.jsdt.ui.superType.container" />
+    <Compile Include=".settings\org.eclipse.wst.jsdt.ui.superType.name" />
+    <Compile Include="css\jquery.multiselect.css" />
+    <Compile Include="css\menu.css" />
+    <Compile Include="css\style.css" />
+    <Compile Include="js\easyTooltip.js" />
+    <Compile Include="js\image.js" />
+    <Compile Include="js\jquery-2.0.3.min.js" />
+    <Compile Include="js\jquery.multiselect.min.js" />
+    <Compile Include="js\kalendar.js" />
+    <Compile Include="js\loader.js" />
+    <Compile Include="js\rozlozeni.js" />
+    <Compile Include="kontrolery\AbstractKontroler.php" />
+    <Compile Include="kontrolery\AdminKontroler.php" />
+    <Compile Include="kontrolery\DefaultKontroler.php" />
+    <Compile Include="kontrolery\MajitelKontroler.php" />
+    <Compile Include="kontrolery\NabidkaKontroler.php" />
+    <Compile Include="kontrolery\ObjektKontroler.php" />
+    <Compile Include="kontrolery\SmerovacKontroler.php" />
+    <Compile Include="modely\AbstractDAO.php" />
+    <Compile Include="modely\ajax_download.php" />
+    <Compile Include="modely\ajax_kalendar.php" />
+    <Compile Include="modely\ajax_upload.php" />
+    <Compile Include="modely\CiselnikClass.php" />
+    <Compile Include="modely\DB.php" />
+    <Compile Include="modely\Debug.php" />
+    <Compile Include="modely\KalendarClass.php" />
+    <Compile Include="modely\Kon.php" />
+    <Compile Include="modely\MajitelClass.php" />
+    <Compile Include="modely\NpolozkaClass.php" />
+    <Compile Include="modely\NhlavickaClass.php" />
+    <Compile Include="modely\ObjektClass.php" />
+    <Compile Include="modely\ObrClass.php" />
+    <Compile Include="modely\Posta.php" />
+    <Compile Include="modely\Zprava.php" />
+    <Compile Include="pohledy\default.phtml" />
+    <Compile Include="pohledy\DetailObjekt.phtml" />
+    <Compile Include="pohledy\login.phtml" />
+    <Compile Include="pohledy\mail.phtml" />
+    <Compile Include="pohledy\majitel.phtml" />
+    <Compile Include="pohledy\majitele.phtml" />
+    <Compile Include="pohledy\MajitelMail.phtml" />
+    <Compile Include="pohledy\objekt.phtml" />
+    <Compile Include="pohledy\objekty.phtml" />
+    <Compile Include="pohledy\objektyTab.phtml" />
+    <Compile Include="pohledy\onas.phtml" />
+    <Compile Include="pohledy\rozlozeni.phtml" />
+    <Compile Include="pohledy\showImage.php" />
+    <Compile Include=".htaccess" />
+    <Compile Include=".project" />
+    <Compile Include="index.php" />
+    <Compile Include="onas.phtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".settings" />
+    <Folder Include="css" />
+    <Folder Include="img\icons" />
+    <Folder Include="img" />
+    <Folder Include="js" />
+    <Folder Include="kontrolery" />
+    <Folder Include="modely" />
+    <Folder Include="pohledy" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="pohledy\nabidka.phtml" />
+    <Content Include="ReleaseNotes.css" />
+  </ItemGroup>
+</Project>

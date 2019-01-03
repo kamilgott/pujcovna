@@ -1,0 +1,179 @@
+<div id="ram" style="padding: 4px;padding-left: 8px;">
+
+    <form method="post" id="form-objekt" >
+        <?php
+        $mj = new MajitelClass();
+      //  $mj->get($id_majitel);
+        $cis = new CiselnikClass();       
+        ?>
+        
+        <small>(ID:<?= $objekt_id ?>)</small>
+        <br/>
+        <h1 class="nadpis">  
+            <?= $nazev ?> 
+            [<?= (isset($kategorie) and $kategorie > 0) ? CiselnikClass::getGcis('ObjektKategorie', $kategorie, 'hodnota_t') : '' ?>]
+        </h1>
+        </br>
+        <div id="fotogalerie" >
+           
+            <p class="thumbs">
+                <?php
+                $img = new ObrClass();
+                $obrazky = $img->select(" id_objekt=" . $objekt_id . ' order by poradi');
+                if (count( $obrazky) >0)
+                {
+                  foreach ($obrazky as $p) :              
+                   
+                    ?>
+                    <img src="<?= $p['bdata']  ?>" 
+                         title="<?= $p['nazev'] ?>" 
+                         /> 
+                     <?php endforeach ?>
+              <?php
+              }else {?>
+               <img id="largeImg" alt="Nejsou přiloženy obrázky" />
+              <?php
+              }
+              ?> 
+        </div>
+
+        
+
+        <strong class="oblast"> Popis:</strong>
+        <p>      
+            <?= $popis ?>
+        </p>              
+
+        <strong class="oblast"> Ceník:</strong>
+        <table id="tcenik" class="tcenik">
+            <tr>
+               
+                <th>den</th>
+                <th>týden</th>
+                <th>měsíc</th>             
+            </tr>
+            <tr>
+              
+               
+                <td>
+                    <?= ($cena == 0) ? '' : $cena.' Kč' ?> 
+                </td>
+                <td>
+                    <?= ($cena_den == 0) ? '' : $cena_den.' Kč' ?>
+                </td>
+                <td>
+                    <?= ($cena_tyden == 0) ? '' : $cena_tyden.' Kč' ?>
+                </td>
+            </tr> 
+            <tr>
+                <th>Upřesnění</th>
+                <td colspan="4" style='text-align: left;'> <?= $cena_popis ?></td>
+            </tr>
+        </table>
+        <p> </p>
+
+        <strong class="oblast"> Rozměr:</strong>
+                  <table id="trozmer" class="tcenik" >
+                    <tr>
+                      <th>délka</th>
+                      <th>šířka</th>
+                      <th>hloubka</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <?=$delka.' cm' ?>
+                      </td>
+                      <td>
+                       <?=$sirka.' cm' ?>
+                      </td>
+                      <td>
+                        <?=$hloubka.' cm' ?>
+                      </td>
+                    </tr>
+                    
+                  </table>         
+                  
+                  
+<!--
+        <p>      
+            <label> Jméno:</label>
+            <?= $mj->data['jmeno'] . ' ' . $mj->data['prijmeni'] ?>
+            <br/>
+            <label> telefon:</label><?= $mj->data['telefon'] ?>
+            <br/>
+            <input class="btn_obsaz" type="submit" value="poslat e-mail majiteli" name="sender" onclick="JavaScript:document.getElementById('akce').value = 'EmailMajitel';">           
+            <br/>
+            <label>stránka objektu: </label> 
+            <a href="<?= 'http://' . $mj->data['www'] ?>"> <?= $mj->data['www'] ?> </a>
+            <br/>
+
+        </p>      
+-->
+
+        <strong class="oblast"> Doprava:</strong>
+        <p>      
+            <?= $doprava_popis ?>
+        </p>      
+
+
+        <?php if (isset($GPS_D) and $GPS_D > 0 and isset($GPS_S) and $GPS_S > 0) { ?>
+       <strong class="oblast"> GPS:</strong> <?= $GPS_S ?>N  <?= $GPS_D ?>E 
+            <script src="/js/loader.js"></script>
+            <script type="text/javascript">Loader.load();</script>
+            <div id="mapa" style="height:380px"></div>
+
+
+            <script type="text/javascript">
+                var center = SMap.Coords.fromWGS84(<?= $GPS_D ?>, <?= $GPS_S ?>);
+                var m = new SMap(JAK.gel("mapa"), center, 13);
+                m.addDefaultLayer(SMap.DEF_BASE).enable();
+                m.addDefaultControls();
+
+                var layer = new SMap.Layer.Marker();
+                m.addLayer(layer);
+                layer.enable();
+
+                var card = new SMap.Card();
+                card.getHeader().innerHTML = "<strong><?= $nazev ?></strong> (<?= (isset($kategorie) and $kategorie > 0) ? CiselnikClass::getGcis('ObjektKategorie', $kategorie, 'hodnota_t') : '' ?>)";
+                card.getBody().innerHTML = "Vítáme Vás v objektu <em><b> ID:<?= $objekt_id ?> </b> obec <?= $obec ?></em>!";
+                card.getBody().innerHTML += "<br/> Kapacita:<b><?= $kapacita ?> osob </b> ";
+                card.getBody().innerHTML += "<br/> <em> www: <a href='http://<?= $mj->data['www'] ?>'> <?= $mj->data['www'] ?> </a> </em>";
+                var options = {
+                    title: "objekt:<?= $nazev ?> ID:<?= $objekt_id ?>"
+                };
+                var marker = new SMap.Marker(center, "myMarker", options);
+                marker.decorate(SMap.Marker.Feature.Card, card);
+                layer.addMarker(marker);
+            </script>
+        <?php } ?>
+
+
+        <input type="hidden"  id="objekt_id" name="objekt_id" value="<?= $objekt_id ?>" />    
+        <input type="hidden" id="akce" name="akce" value="<?= $akce ?>" />
+        <input type="hidden" id="status" name="status" value="<?= $status ?>" />
+
+        <strong class="oblast"> Kalendář obsazení:</strong>
+
+          <input type="submit" class='odeslat'  style='float:none; clear:both;' value="Uprav" />
+
+          <?php
+        $kal = new KalendarClass();
+        $mesic = date("n");
+        $rok = date("Y");
+        echo "<div style='float:none; clear:both;'> <label>  Rok:$rok </label> </div> ";
+        for ($m = 0; $m < 13; $m++) {
+            echo "<div style='float: left'  >";
+            $kal->Kalendar($mesic + $m, $rok, $objekt_id);
+            if ($m + $mesic == 12) {
+                $mesic = -$m;
+                $rok++;
+                echo "</div>  <div style='float:none; clear:both;' > <label > Rok:$rok </label> </div>  ";
+            } else {
+                echo "</div>";
+            }
+        }
+        ?>
+
+    </form>
+    <div style='float:none; clear:both;'> </div>
+</div >

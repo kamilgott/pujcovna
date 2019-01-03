@@ -1,0 +1,93 @@
+<div id="ram" >
+    <strong > <?= $titulek ?> po řádcích </strong>
+    <form method="post" id="form-objekt">
+        <table class="f_table" style="font-size: 13px;" >
+            <tr style="background-color: khaki;">
+                <td>
+                    <b>ID</b>  
+                </td>
+                <td>
+                    <b>Obrázek</b>  
+                </td>
+
+                <td>
+                    <b>Název</b>  
+                    
+                </td>
+                <td>
+                    <b>Cena</b>  
+                </td>
+                <td>
+                    <b>Oblast</b>
+                    <br/>
+                    <b>Adresa</b>  
+                </td>
+
+                <td>
+                    <b>Kategorie</b>
+                    <br/>
+                    <b>Tématika</b>
+                </td>
+                <td>
+                    <b>Popis</b>
+                </td>
+
+            </tr> 
+
+            <?php foreach ($seznam as $ob) : ?>
+
+
+                <tr class="tr_seznam" 
+                    kategorie="<?= CiselnikClass::getGcis('ObjektKategorie', $ob['kategorie'], 'hodnota_c') ?>" 
+                    id="<?= $ob['objekt_id'] ?>"
+                    onclick="return !window.open('/objekt/view/<?= $ob['objekt_id'] ?>', '', '');" 
+                    >
+                    <td>
+                        <?= $ob['objekt_id'] ?>  
+                    </td>
+                    <td>
+                        <?php
+                        $img = DB::dotazSamotny("SELECT bdata FROM obr where id_objekt= ? and poradi=1 ", array($ob['objekt_id']));                        
+                        $img = "$img";
+                        ?>
+                        <img width="100" height="100"  src=" <?= $img ?>"    />
+                    </td>
+
+                    <td>
+                        <b><?= $ob['nazev'] ?></b>                      
+                    </td>
+                    <td nowrap>                                                  
+                            <?= ($ob['cena'] > 0) ? "den: <b>" . $ob['cena'] . "</b> Kč<br/> " : "" ?>
+                            <?= ($ob['cena_tyden'] > 0) ? "týden: <b>" . $ob['cena_tyden'] . "</b> Kč<br/>" : "" ?>
+                            <?= ($ob['cena_den'] > 0) ? "den: <b>" . $ob['cena_den'] . "</b> Kč<br/>" : "" ?>                       
+
+                        <?php if (strlen($ob['cena_popis']) > 1) { ?>
+                            <span  class="tooltip" style="color: blue;" title ="<?= $ob['cena_popis'] ?>"> [Upřesnění] </span>
+                        <?php } ?>
+
+                    </td>                   
+
+                    
+                    <td>
+                        <small>  <?= substr($ob['popis'], 0, 60) . "..." ?>  </small>
+                        <span  class="tooltip" style="color: blue;" title ="<?= $ob['popis'] ?>"> [celé] </span>
+
+                    </td>
+                    <?php if ($_SESSION['s_majitel']['status'] > 99) { ?>
+                        <td>
+                            <a href="/objekt/edit/<?= $ob['objekt_id'] ?>" >Edituj</a>
+                        </td>
+                    <?php } ?>   
+
+                </tr> 
+            <?php endforeach ?>
+
+
+        </table>
+        <br />
+        <input type="hidden" name="akce" id="akce" value="<?= $akce ?>" />
+
+
+    </form>
+
+</div >

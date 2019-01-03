@@ -1,0 +1,261 @@
+<div id="ram" style="padding: 4px;">
+  <h1>
+    <?= $titulek ?>
+  </h1>
+  <!--?= "text PredNovyObjekt" ? -->
+  <script src="/js/kalendar.js"></script>
+  <script src="/js/image.js"></script>
+
+
+  <form method="post" id="form-objekt" enctype="multipart/form-data" >
+    <?php $cis = new CiselnikClass(); ?>
+    <table class="f_table" >
+      <thead>
+        <th style="width:10%;">
+          <th style="width:30%;">
+            <th style="width:30%;">
+              <th style="width:30%;">
+                </thead>
+      <tr>
+        <td>
+          ID:<?= $objekt_id ?>
+        </td>
+        <td>
+          <label for="kategorie">Kategorie:</label>
+          <select name="kategorie" id="kategorie"  >
+            <?php $cis->data = CiselnikClass::getGNazev('ObjektKategorie'); ?>
+            <option
+              <?= ($kategorie == 0 ? " selected" : "") ?>
+              value = 0>--neurčeno--
+            </option>
+            <?php foreach ($cis->data as $p) : ?>
+            <option
+              <?= ($p['ciselnik_id'] == $kategorie ? " selected" : "") ?>
+              value = '<?= $p['ciselnik_id'] ?>' > <?= $p['hodnota_t'] ?>
+            </option>
+            <?php endforeach ?>
+          </select>
+        </td>
+
+        <td colspan="2">
+          <label for="nazev" >Název:</label>
+          <input type="text" name="nazev" class="tooltip" id="nazev" required="required" style="width: 70%;"
+                 value="<?= $nazev ?>"
+          title="Určete název Vašeho objektu např. Matrace 'JOMNA' "
+          />
+        </td>
+
+      </tr>
+      
+      <tr>
+        <td>
+          <label for="popis">Popis:</label>
+        </td>
+        <td colspan="3">
+          <textarea name="popis" id="popis"  maxlength="500" class="popis">
+            <?= $popis ?>
+          </textarea>
+        </td>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <label for="cena">Cena:</label>
+        </td>
+        <td >
+          <label for="cena">měsíc:</label>
+          <input class="icena" type="number" name="cena"  id="cena"
+                 value="<?= ($cena == 0) ? '' : $cena ?>"  />
+        </td>
+        <td>
+          <label for="cena_tyden">týden:</label>
+          <input class="icena" type="number" name="cena_tyden" id="cena_tyden"
+                 value="<?= ($cena_tyden == 0) ? '' : $cena_tyden ?>" />
+        </td>
+        <td>
+          <label for="cena_den">den:</label>
+          <input class="icena" type="number" name="cena_den"  id="cena_den"
+                 value="<?= ($cena_den == 0) ? '' : $cena_den ?>"  />
+
+        </td>
+      </tr>
+      <tr>
+
+        <td>
+          <label for="odprodej">Odprodej:</label>
+        </td>
+        <td>
+          <input type="number" name="odprodej" class="icena tooltip" id="odprodej"
+                 value="<?= ($odprodej == 0) ? '' : $odprodej ?>"
+          title="Určete odprodejní cenu objektu v Kč."
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="rozmer">Rozměr:</label>
+        </td>
+        <td>
+          <label for="sirka">šířka:</label>
+          <input type="number" name="sirka" class="icena tooltip" id="sirka"
+                 value="<?= ($sirka == 0) ? '' : $sirka ?>"
+          title="Určete šířku objektu v cm."
+          />
+        </td>
+        <td>
+          <label for="delka">délka:</label>
+          <input type="number" name="delka" class="icena tooltip" id="delka"
+                 value="<?= ($delka == 0) ? '' : $delka ?>"
+          title="Určete délku objektu v cm."
+          />
+        </td>
+        <td>
+          <label for="hloubka">hloubka:</label>
+          <input type="number" name="hloubka" class="icena tooltip" id="hloubka" 
+                 title="Určete hloubku objektu v cm."
+                 value="<?= ($hloubka == 0) ? '' : $hloubka ?>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Umístění
+        </td>
+        <td>
+          <label for="sklad">Sklad:</label>
+          <select name="sklad" id="sklad"  >
+            <?php $cis->data = CiselnikClass::getGNazev('Sklad'); ?>
+            <option
+              <?= ($sklad == 0 ? " selected" : "") ?>
+              value = 0>--neurčeno--
+            </option>
+            <?php foreach ($cis->data as $p) : ?>
+            <option
+              <?= ($p['ciselnik_id'] == $sklad ? " selected" : "") ?>
+              value = '<?= $p['ciselnik_id'] ?>' > <?= $p['hodnota_t'] ?>
+            </option>
+            <?php endforeach ?>
+          </select>
+        </td>
+        <td>
+          <label for="pocet">Počet:</label>
+          <input type="number" name="pocet" class="icena tooltip" id="pocet"
+                  title="Určete počet objektů."
+                  value="<?= ($pocet == 0) ? '' : $pocet ?>" />
+        </td>
+        </tr>
+
+        <tr>
+        <td>
+          <label for="GPS_S">GPS šířka:</label>
+        </td>
+        <td >
+          <input type="text"  name="GPS_S" id="GPS_S" maxlength="12"
+              
+          class="tooltip" title="Vložte GPS souřadnice pro severní zeměpisnou šířku ve tvaru např. 50.0909939 pro Pražský Hrad" />
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label for="GPS_D">GPS délka:</label>
+        </td>
+        <td >
+          <input type="text"  name="GPS_D" id="GPS_D"  maxlength="12"
+               
+          class="tooltip" title="Vložte GPS souřadnice pro východní zeměpisnou délku ve tvaru např. 14.4009989 pro Pražský Hrad " />
+        </td>
+      </tr>
+
+    </table>
+    <br />
+
+    
+    <input type="hidden" name="objekt_id" id ="objekt_id" value="<?= $objekt_id ?>" />
+    <input type="hidden" name="akce" id="akce" value="<?= $akce ?>" />
+    <input type="hidden" name="status" id="status" value="<?= $status ?>" />
+
+    <?= ($status == 0) ? "Před vložením fotografií je třeba nejdříve výše uvedené údaje uložit.<br/>":""  ?>
+    <input type="submit" class='odeslat'  value="Ulož" />
+
+    <?php if ($status >= 0) { ?>
+    <input type="submit" class='odeslat' title="Dočasně skyje prezentaci objektu v aplikaci"
+           value="Skyj prezentaci"
+           onclick="JavaScript:document.getElementById('akce').value = 'ObnovSkryj';"  />
+    <?php } ?>
+    <?php if ($status < 0) { ?>
+    <input type="submit" class='odeslat' title="Obnoví prezentaci objektu v aplikaci"
+           value="Obnov prezentaci"
+           onclick="JavaScript:document.getElementById('akce').value = 'ObnovSkryj';"  />
+    <?php } ?>
+
+
+
+    <?php if (isset($_SESSION['s_majitel']) and $_SESSION['s_majitel']['status'] > 90) { ?>
+    <input type="submit" class='odeslat'  value="Smaž objekt"  title=" Nevratně smaže objekt z aplikace"
+           onclick="JavaScript:document.getElementById('akce').value = 'delete';
+                               return confirm('Chcete opravdu nevratne smazat tento objekt?');" />
+    <?php } ?>
+    <?php if ($status != 0) { ?>
+
+
+    <img id="uploadPreview" >
+      <br/>
+      <label for="foto">
+        <a href="/objekt/smazFoto/<?= $objekt_id ?>" >Smaž fotografie objektu
+        </a>
+        <div id='DivFoto'>
+          <output id="filesInfo"></output>
+
+          <?php
+                    $img = new ObrClass();
+                    $obrazky = $img->select(" id_objekt=" . $objekt_id . ' order by poradi');
+                    for ($i = 1; $i <= 3; $i++) {
+                        foreach ($obrazky as $p)
+                            if ($p['poradi'] == $i) {
+                                ?>
+          <img width="100" height="100"
+               src="<?= $p['bdata'] ?>"
+          title="<?= $p['nazev'] ?>"
+          />
+          <?php
+                                     break;
+                                 }
+                             ?>
+
+         <input type="file" id="foto<?= $i ?>" name="foto<?= $i ?>"
+           onchange="resizeAndUpload(this.files[0],<?= $objekt_id ?>,<?= $i ?>)" accept="image/*"  /> 
+
+
+          <br/>
+          <?php } ?>
+
+          </br>
+          <label>Kalendář obsazení objektu </label>
+          <?php
+                    $kal = new KalendarClass();
+                    $mesic = date("n");
+                    $rok = date("Y");
+                    echo "<div style='float:none; clear:both;'> <h3>  Rok:$rok </h3> </div> ";
+                    for ($m = 0; $m < 13; $m++) {
+                        echo "<div style='float: left'  >";
+                        $kal->Kalendar($mesic + $m, $rok, $objekt_id);
+                        if ($m + $mesic == 12) {
+                            $mesic = -$m;
+                            $rok++;
+                            echo "</div> <h3 style='float:none; clear:both;'> Rok:$rok </h3> ";
+                        } else {
+                            echo "</div>";
+                        }
+                    }
+                    ?>
+          <br style='float:none; clear:both;' />
+          <input type="submit" class='odeslat'  style='float:none; clear:both;' value="Ulož" />
+          <?php } ?>
+
+        </div>
+
+      </form>
+
+  <?= "text PoNovyObjekt" ?>
+</div >
